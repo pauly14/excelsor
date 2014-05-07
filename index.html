@@ -16,11 +16,99 @@
 		<script src="js/config.js"></script>
 		<script src="js/skel.min.js"></script>
 		<script src="js/skel-panels.min.js"></script>
+        <script type="text/javascript" src="js/1.7.1/jquery.min.js"></script>
+        <script type="text/javascript" src="js/jquery.roundabout.min.js"></script>
+        <script type="text/javascript">
+            // Your Script Goes Here
+        </script>
 		<noscript>
 			<link rel="stylesheet" href="css/skel-noscript.css" />
 			<link rel="stylesheet" href="css/style.css" />
 			<link rel="stylesheet" href="css/style-desktop.css" />
+
 		</noscript>
+        <style rel="stylesheet" type="text/css" media="screen">
+            body{background:#0f0f0f; color:#eee;}
+            .roundabout-holder {
+                padding: 0;
+                margin: 0 auto;
+                height: 400px;
+                width: 620px;
+            }
+
+            .roundabout-moveable-item {
+                height: 400px;
+                width: 320px;
+                cursor: pointer;
+                border:1px solid black;
+                display:block;
+            }
+
+            .roundabout-moveable-item img {
+                height: 100%;
+                width: 100%;
+            }
+
+            .roundabout-in-focus {
+                cursor: auto;
+            }
+
+            #carousel-descriptions {
+                list-style:none;
+                display:block;
+                width:850px;
+                margin:25px auto;
+                padding:0;
+            }
+
+            #carousel-descriptions li {
+                font-size:24px;
+                font-weight:bold;
+                text-align:center;
+                display:none;
+            }
+
+            #carousel-descriptions li.current {
+                display:block;
+            }
+
+            #carousel-controls {
+                max-width:900px;
+                width:auto;
+                margin:25px auto;
+                overflow:auto;
+                border-collapse:collapse;
+                text-align:center;
+            }
+
+            #carousel-controls span {
+                width:100px;
+                display:inline-block;
+                font-size:14px;
+                text-align:center;
+                margin:0 5px;
+                padding:5px;
+                cursor:pointer;
+                border:1px solid black;
+                background:#333;
+            }
+            /*
+            #carousel-controls td span {
+                font-size:14px;
+                text-align:center;
+                margin:0 5px;
+                padding:5px;
+                cursor:pointer;
+                border:1px solid black;
+                background:#333;
+            }*/
+
+            #carousel-controls .current {
+                background:#600;
+
+                border-color:#400;
+            }
+        </style>
 		<!--[if lte IE 9]><link rel="stylesheet" href="css/ie9.css" /><![endif]-->
 		<!--[if lte IE 8]><script src="js/html5shiv.js"></script><link rel="stylesheet" href="css/ie8.css" /><![endif]-->
 		<!--[if lte IE 7]><link rel="stylesheet" href="css/ie7.css" /><![endif]-->
@@ -38,14 +126,14 @@
 									<div class="inner">
 									
 										<!-- Logo -->
-											<h1><a href="#" id="logo">ZeroFour</a></h1>
+											<h1><a href="#" id="logo">Wonders Of the World</a></h1>
 										
 										<!-- Nav -->
 											<nav id="nav">
 												<ul>
 													<li class="current_page_item"><a href="index.html">Home</a></li>
 													<li>
-														<span>Dropdown</span>
+														<span>Landmarks</span>
 														<ul>
 															<li><a href="#">Lorem ipsum dolor</a></li>
 															<li><a href="#">Magna phasellus</a></li>
@@ -71,12 +159,35 @@
 								</header>
 
 							<!-- Banner -->
-								<div id="banner">
-									<h2><strong>ZeroFour:</strong> A free responsive site template<br />
-									built on HTML5 and CSS3 by <a href="http://html5up.net">HTML5 UP</a></h2>
-									<p>Does this statement make you want to click the shiny blue button?</p>
-									<a href="#" class="button big fa fa-check-circle">Yes it does</a>
-								</div>
+                            <div id="carousel">
+                                <img src="images/slide1.png" alt="" class="slide" />
+                                <img src="images/slide2.png" alt="" class="slide" />
+                                <img src="images/slide3.png" alt="" class="slide" />
+                                <img src="images/slide4.png" alt="" class="slide" />
+                                <img src="images/slide5.png" alt="" class="slide" />
+                                <img src="images/slide6.png" alt="" class="slide" />
+                                <img src="images/slide7.png" alt="" class="slide" />
+                            </div>
+
+                            <ul id="carousel-descriptions">
+                                <li class="desc current">Slide 1 Description Goes Here</li>
+                                <li class="desc">Slide 2 Description Goes Here</li>
+                                <li class="desc">Slide 3 Description Goes Here</li>
+                                <li class="desc">Slide 4 Description Goes Here</li>
+                                <li class="desc">Slide 5 Description Goes Here</li>
+                                <li class="desc">Slide 6 Description Goes Here</li>
+                                <li class="desc">Slide 7 Description Goes Here</li>
+                            </ul>
+
+                            <div id="carousel-controls">
+                                <span class="control current">Show Me<br>Slide 1</span>
+                                <span class="control">Show Me<br>Slide 2</span>
+                                <span class="control">Show Me<br>Slide 3</span>
+                                <span class="control">Show Me<br>Slide 4</span>
+                                <span class="control">Show Me<br>Slide 5</span>
+                                <span class="control">Show Me<br>Slide 6</span>
+                                <span class="control">Show Me<br>Slide 7</span>
+                            </div>
 
 						</div>
 					</div>
@@ -93,7 +204,7 @@
 								<div class="row">
 									<div class="12u">
 										<header class="first major">
-											<h2>This is an important heading</h2>
+											<h2>The 7 Wonders Of The World</h2>
 											<span class="byline">And this is where we talk about why we’re <strong>pretty awesome</strong> ...</span>
 										</header>
 									</div>
@@ -371,6 +482,40 @@
 					</div>
 				</footer>
 			</div>
+        <script type="text/javascript">
+            (function($) {
 
+                var $descriptions = $('#carousel-descriptions').children('li'),
+                        $controls = $('#carousel-controls').find('span'),
+                        $carousel = $('#carousel')
+                                .roundabout({childSelector:"img", minOpacity:1, autoplay:true, autoplayDuration:5000, autoplayPauseOnHover:true })
+                                .on('focus', 'img', function() {
+                                    var slideNum = $carousel.roundabout("getChildInFocus");
+
+                                    $descriptions.add($controls).removeClass('current');
+                                    $($descriptions.get(slideNum)).addClass('current');
+                                    $($controls.get(slideNum)).addClass('current');
+                                });
+
+                $controls.on('click dblclick', function() {
+                    var slideNum = -1,
+                            i = 0, len = $controls.length;
+
+                    for (; i<len; i++) {
+                        if (this === $controls.get(i)) {
+                            slideNum = i;
+                            break;
+                        }
+                    }
+
+                    if (slideNum >= 0) {
+                        $controls.removeClass('current');
+                        $(this).addClass('current');
+                        $carousel.roundabout('animateToChild', slideNum);
+                    }
+                });
+
+            }(jQuery));
+        </script>
 	</body>
 </html>
